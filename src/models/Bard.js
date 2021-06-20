@@ -1,4 +1,3 @@
-import { MeshDistortMaterial } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 

@@ -1,6 +1,4 @@
-import { Html } from "@react-three/drei";
-import { useLoader } from "@react-three/fiber";
-import { TextureLoader } from "three";
+import { Html } from '@react-three/drei'
 
 function Image(props) {
   return (
@@ -12,7 +10,7 @@ function Image(props) {
         />
       </Html>
     </group>
-  );
+  )
 }
 
-export default Image;
+export default Image

@@ -1,21 +1,15 @@
 import {
-  Mesh,
-  OrthographicCamera,
-  PlaneBufferGeometry,
-  Scene,
-  ShaderMaterial,
-  UniformsUtils,
   Vector2
-} from "three";
-import { DIMENSIONS } from "./const";
+} from 'three'
+import { DIMENSIONS } from './const'
 
 export const CrtShader = {
   uniforms: {
     tDiffuse: { value: null },
     iResolution: {
-      type: "vec2",
-      value: new Vector2(DIMENSIONS.width - 3, DIMENSIONS.height - 2)
-    }
+      type: 'vec2',
+      value: new Vector2(DIMENSIONS.width - 3, DIMENSIONS.height - 2),
+    },
   },
   vertexShader: /*glsl*/ `
     varying vec2 vUv;
@@ -185,5 +179,5 @@ void main(){
   
 
 
-  `
-};
+  `,
+}

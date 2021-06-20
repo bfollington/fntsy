@@ -1,31 +1,25 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
-import {
-  Canvas,
-  extend,
-  useFrame,
-  useResource,
-  useThree
-} from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, Stage } from "@react-three/drei";
-import Blob from "./Blob";
-import Effects from "./Effects";
-import Menu from "./Menu";
-import Angel from "./models/Angel";
-import Mind from "./models/Mind";
-import Mandala from "./models/Mandala";
-import Bard from "./models/Bard";
-import Gif from "./models/Gif";
-import CursorFollow from "./CursorFollow";
-import MoveTowards from "./MoveTowards";
-import { Text } from "troika-three-text";
-import fonts from "./fonts/fonts";
-import { DIMENSIONS } from "./const";
+import React, { Suspense, useEffect, useRef, useState } from 'react'
+import { Canvas, extend, useFrame, useResource, useThree } from '@react-three/fiber'
+import { OrbitControls, PerspectiveCamera, Stage } from '@react-three/drei'
+import Blob from './Blob'
+import Effects from './Effects'
+import Menu from './Menu'
+import Angel from './models/Angel'
+import Mind from './models/Mind'
+import Mandala from './models/Mandala'
+import Bard from './models/Bard'
+import Gif from './models/Gif'
+import CursorFollow from './CursorFollow'
+import MoveTowards from './MoveTowards'
+import { Text } from 'troika-three-text'
+import fonts from './fonts/fonts'
+import { DIMENSIONS } from './const'
 
-extend({ Text });
+extend({ Text })
 
 export default function Viewer() {
-  const ref = useRef();
-  const myCamera = useRef();
+  const ref = useRef()
+  const myCamera = useRef()
 
   return (
     <Canvas
@@ -33,14 +27,14 @@ export default function Viewer() {
       gl={{ antialias: false }}
       dpr={1}
       style={{
-        width: DIMENSIONS.width + "px",
-        height: DIMENSIONS.height + "px",
-        imageRendering: "pixelated"
+        width: DIMENSIONS.width + 'px',
+        height: DIMENSIONS.height + 'px',
+        imageRendering: 'pixelated',
       }}
       camera={{ fov: 50 }}
     >
-      <fog attach="fog" args={["red", 0, 125]} />
-      <color attach="background" args={["black"]} />
+      <fog attach="fog" args={['red', 0, 125]} />
+      <color attach="background" args={['black']} />
 
       <ambientLight intensity={0.2} />
       <directionalLight
@@ -122,5 +116,5 @@ export default function Viewer() {
       {/* <OrbitControls ref={ref} camera={myCamera.current} autoRotate /> */}
       <Effects />
     </Canvas>
-  );
+  )
 }

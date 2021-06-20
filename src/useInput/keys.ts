@@ -1,14 +1,14 @@
 const KEYS = {
-  "0": 48,
-  "1": 49,
-  "2": 50,
-  "3": 51,
-  "4": 52,
-  "5": 53,
-  "6": 54,
-  "7": 55,
-  "8": 56,
-  "9": 57,
+  '0': 48,
+  '1': 49,
+  '2': 50,
+  '3': 51,
+  '4': 52,
+  '5': 53,
+  '6': 54,
+  '7': 55,
+  '8': 56,
+  '9': 57,
   backspace: 8,
   tab: 9,
   enter: 13,
@@ -96,7 +96,7 @@ const KEYS = {
   open_bracket: 219,
   back_slash: 220,
   close_braket: 221,
-  single_quote: 222
-};
+  single_quote: 222,
+}
 
-export default KEYS;
+export default KEYS
