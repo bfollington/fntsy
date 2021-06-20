@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { useCallback, useEffect } from 'react'
+import MOUSE from './mouse'
 
 export const TICK = 16
 
 type Mapping = {
-  [action: string]: number[]
+  [action: string]: string[]
 }
 
 type MappingT = {
-  [keyCode: number]: string[]
+  [keyCode: string]: string[]
 }
 
 type InputCallbackMap<M extends Mapping> = {
@@ -30,7 +31,7 @@ function transposeMapping(mapping: Mapping): MappingT {
   const t: any = {}
   for (let action in mapping) {
     const keyCodes = mapping[action]
-    keyCodes.forEach((k) => tryGet(t, k, []).push(action))
+    keyCodes.forEach((k) => tryGet(t, k, []).push(action.toString()))
   }
   return t
 }
@@ -127,15 +128,57 @@ export function useInput<M extends Mapping>(mapping: M, callbacks?: InputCallbac
     [dispatch, mappingT, callbacks]
   )
 
+  const onMouseDown = useCallback(
+    (ev: MouseEvent) => {
+      const mouseButtons = [MOUSE.LMB, MOUSE.MB, MOUSE.RMB]
+      const mb = mouseButtons[ev.button]
+      if (mappingT[mb]) {
+        mappingT[mb].forEach((a) => {
+          dispatch({ type: 'pressed', action: a })
+          setTimeout(() => {
+            dispatch({ type: 'pressed-timeout', action: a })
+          }, TICK)
+          if (callbacks && callbacks[a]?.onPressed) {
+            callbacks[a].onPressed()
+          }
+        })
+      }
+    },
+    [dispatch, mappingT, callbacks]
+  )
+  const onMouseUp = useCallback(
+    (ev: MouseEvent) => {
+      const mouseButtons = [MOUSE.LMB, MOUSE.MB, MOUSE.RMB]
+      const mb = mouseButtons[ev.button]
+      if (mappingT[mb]) {
+        mappingT[mb].forEach((a) => {
+          dispatch({ type: 'released', action: a })
+          setTimeout(() => {
+            dispatch({ type: 'released-timeout', action: a })
+          }, TICK)
+
+          if (callbacks && callbacks[a]?.onReleased) {
+            callbacks[a].onReleased()
+          }
+        })
+      }
+    },
+    [dispatch, mappingT, callbacks]
+  )
+
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown)
     document.addEventListener('keyup', onKeyUp)
+    document.addEventListener('mousedown', onMouseDown)
+    document.addEventListener('mouseup', onMouseUp)
 
     return () => {
       document.removeEventListener('keydown', onKeyDown)
       document.removeEventListener('keyup', onKeyUp)
+      document.removeEventListener('mousedown', onMouseDown)
+      document.removeEventListener('mouseup', onMouseUp)
     }
-  }, [onKeyDown, onKeyUp])
+  }, [onKeyDown, onKeyUp, onMouseDown, onMouseUp])
 
   return state
 }

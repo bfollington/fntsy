@@ -28,7 +28,7 @@ export default function Effects() {
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
 
-      <afterimagePass attachArray="passes" args={[0.82]} scene={scene} camera={camera} />
+      <afterimagePass attachArray="passes" args={[0.75]} scene={scene} camera={camera} />
       <unrealBloomPass attachArray="passes" args={[aspect, 0.5, 0.2, 0]} />
       {/* <glitchPass
         attachArray="passes"
