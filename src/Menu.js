@@ -66,15 +66,6 @@ const Cube = ({ position, selected, index }) => {
   )
 }
 
-const Cursor = ({ position }) => {
-  return (
-    <mesh position={position} rotation={[0, 0, Math.PI / 4]}>
-      <meshStandardMaterial attach="material" color="blue" />
-      <coneGeometry args={[0.3 / 2, 0.5 / 2, 4]} />
-    </mesh>
-  )
-}
-
 const GAMES = [
   { title: 'Super b0nk®', author: 'Meticulous LLC', year: '2002' },
   { title: 'GoGo Quest!', author: 'Insidiuous Co.', year: '2001' },
@@ -91,7 +82,7 @@ const Menu = ({ position }) => {
   const [[x, y], setCursor] = useState([0, 0])
   const selectedIndex = y * 3 + x
 
-  const { up, down, left, right } = useInput(
+  useInput(
     {
       up: [KEYS.up_arrow],
       down: [KEYS.down_arrow],

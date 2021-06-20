@@ -9,7 +9,7 @@ import React, { useRef } from 'react'
 export default function Model(props) {
   const group = useRef()
   const inner = useRef()
-  const { nodes, materials } = useGLTF('/crystal.gltf')
+  const { nodes } = useGLTF('/crystal.gltf')
 
   useFrame(({ delta, clock }) => {
     const g = inner.current

@@ -1,14 +1,12 @@
 import { PerspectiveCamera } from '@react-three/drei'
-import { useFrame, useThree } from '@react-three/fiber'
-import { atom, useAtom } from 'jotai'
+import { useFrame } from '@react-three/fiber'
+import { atom } from 'jotai'
 import { useRef } from 'react'
 import { Vector3 } from 'three'
-import fonts from './fonts/fonts'
 import KEYS from './useInput/keys'
 import MOUSE from './useInput/mouse'
 import { useInput } from './useInput/useInput'
 import { useMousePosition } from './useInput/useMousePosition'
-import { tov3 } from './v3'
 
 export const target = atom([0, 0, 5])
 const offset = new Vector3(0, -0.15, 0)

@@ -7,7 +7,7 @@ import React, { useRef } from 'react'
 
 export default function Model(props) {
   const group = useRef()
-  const { nodes, materials } = useGLTF('/blob.gltf')
+  const { nodes } = useGLTF('/blob.gltf')
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh

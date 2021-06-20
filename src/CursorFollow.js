@@ -1,20 +1,11 @@
 import { animated, useSpring } from '@react-spring/three'
-import { useFrame, useThree } from '@react-three/fiber'
-import { useAtom } from 'jotai'
+import { useFrame } from '@react-three/fiber'
 import React, { useRef } from 'react'
 import { Vector3 } from 'three'
-import fonts from './fonts/fonts'
-import { target } from './PanningCamera'
-import DebugText from './DebugText'
 import { useMousePosition } from './useInput/useMousePosition'
-import { printv3 } from './v3'
 
 export default function Model(props) {
   const group = useRef()
-  const text = useRef()
-
-  const [targetPoint] = useAtom(target)
-  const three = useThree()
 
   const [styles, api] = useSpring(() => ({
     from: { position: new Vector3(0, 0, 0) },
@@ -25,7 +16,7 @@ export default function Model(props) {
     },
   }))
 
-  const { mouse, projected } = useMousePosition(-10)
+  const { projected } = useMousePosition(-10)
 
   useFrame(() => {
     api.start({
