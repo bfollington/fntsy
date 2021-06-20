@@ -6,18 +6,20 @@
     "build": "react-scripts build"
   },
   "devDependencies": {
-    "react-scripts": "4.0.3"
+    "@types/react": "^17.0.11",
+    "react-scripts": "^4.0.3"
   },
   "dependencies": {
     "@react-spring/three": "9.2.3",
-    "@react-three/drei": "6.0.1",
+    "@react-three/drei": "6.2.0",
     "@react-three/fiber": "7.0.1",
     "@types/three": "0.129.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-spring": "9.2.3",
     "three": "0.129.0",
-    "troika-three-text": "0.42.0"
+    "troika-three-text": "0.42.0",
+    "typescript": "^4.3.4"
   },
   "browserslist": [
     ">0.2%",
@@ -27,5 +29,11 @@
   ],
   "keywords": [],
   "name": "fntsy",
-  "description": "an imaginary console"
+  "description": "an imaginary console",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  }
 }
