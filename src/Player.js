@@ -1,9 +1,10 @@
-import { useFrame } from '@react-three/fiber'
-import React, { useRef } from 'react'
-import { Vector3 } from 'three'
-import { useMousePosition } from './useInput/useMousePosition'
-import DebugText from './DebugText'
 import { Icosahedron } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import React, { useEffect, useRef } from 'react'
+import { Vector3 } from 'three'
+import DebugText from './DebugText'
+import { chan } from './multiplayer'
+import { useMousePosition } from './useInput/useMousePosition'
 
 export default function Model(props) {
   const group = useRef()
@@ -21,6 +22,14 @@ export default function Model(props) {
     obj.current.rotation.x = obj.current.rotation.y += 0.008
     obj.current.rotation.z += Math.sin(delta) * 0.03
   })
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      // TODO: any amount of useful error checking
+      chan.emit('chat message', JSON.stringify({ position: group.current.position }))
+    }, 1000)
+    return () => clearInterval(t)
+  }, [])
 
   return (
     <group {...props} ref={group} dispose={null}>
