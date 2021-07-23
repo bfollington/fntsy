@@ -10,6 +10,7 @@
     "react-scripts": "^4.0.3"
   },
   "dependencies": {
+    "2d-dungeon": "^0.0.7",
     "@react-spring/three": "9.2.3",
     "@react-three/drei": "6.2.0",
     "@react-three/fiber": "7.0.1",

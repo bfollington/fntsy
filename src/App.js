@@ -3,8 +3,8 @@ import React, { Suspense } from 'react'
 import { Text } from 'troika-three-text'
 import { DIMENSIONS } from './const'
 import CursorFollow from './CursorFollow'
+import DungeonGenerator from './DungeonGenerator'
 import Effects from './Effects'
-import Angel from './models/Angel'
 import Floor from './models/Floor'
 import PanningCamera from './PanningCamera'
 import Player from './Player'
@@ -48,11 +48,11 @@ export default function Viewer() {
         {/* <Mind position={[0, 0, -7]} scale={[0.8, 0.8, 0.8]} /> */}
         {/* <Mandala position={[-6, 0, -10]} scale={[0.01, 0.01, 0.01]} /> */}
         {/* <Bard position={[0, 0, -10]} scale={[1, 1, 1]} /> */}
-        <Floor position={[0, 0, -11]} scale={[24, 24, 1]} />
-        <Angel position={[0, 8, -10]} scale={[0.02, 0.02, 0.02]} />
+        <Floor position={[0, 0, -11]} scale={[128, 128, 1]} />
         {/* <Gif position={[0, 0, -10]} scale={[1, 1, 1]} /> */}
         <CursorFollow />
         <Player position={[0, 0, -10.9]} speed={0.09} color="#76428a" />
+        <DungeonGenerator position={[0, 0, -11]} />
         {/* <text
           position={[-45, 44.5, -100]}
           rotation={[0, 0, 0]}

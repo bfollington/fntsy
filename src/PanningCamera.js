@@ -60,7 +60,7 @@ function PanningCamera(props) {
       makeDefault
       position={[0, 0, 5]}
       rotation={[0.3, 0, 0]}
-      fov={50}
+      fov={70}
       far={1000}
       near={0.1}
     />

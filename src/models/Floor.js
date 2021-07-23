@@ -5,7 +5,7 @@ function Image(props) {
   const texture = useLoader(TextureLoader, '/floor.png')
   if (texture) {
     texture.wrapS = texture.wrapT = RepeatWrapping
-    texture.repeat.set(24, 24)
+    texture.repeat.set(128, 128)
   }
   return (
     <mesh {...props}>
