@@ -37,7 +37,6 @@ function shuffle(array) {
 
 export default function DungeonGenerator(props) {
   const group = useRef()
-  const obj = useRef()
 
   const [walls, setWalls] = useState([])
   const [possibleArtworkPoints, setPossibleArtworkPoints] = useState([
