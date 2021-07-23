@@ -1,6 +1,7 @@
 import Dungeon from '2d-dungeon'
 import React, { useEffect, useRef, useState } from 'react'
 import Angel from './models/Angel'
+import Mandala from './models/Mandala'
 
 const around = ([x, y]) => {
   return [
@@ -39,7 +40,10 @@ export default function DungeonGenerator(props) {
   const obj = useRef()
 
   const [walls, setWalls] = useState([])
-  const [possibleArtworkPoints, setPossibleArtworkPoints] = useState([[0, 0]])
+  const [possibleArtworkPoints, setPossibleArtworkPoints] = useState([
+    [0, 0],
+    [0, 0],
+  ])
 
   useEffect(() => {
     let dungeon = new Dungeon({
@@ -107,6 +111,11 @@ export default function DungeonGenerator(props) {
     possibleArtworkPoints[0][1] * scale,
     1,
   ]
+  const mandalaPos = [
+    possibleArtworkPoints[1][0] * scale,
+    possibleArtworkPoints[1][1] * scale,
+    1,
+  ]
 
   return (
     <group {...props} ref={group} dispose={null}>
@@ -118,10 +127,7 @@ export default function DungeonGenerator(props) {
       ))}
 
       <Angel position={angelPos} scale={[0.02, 0.02, 0.02]} />
-      {/* <Icosahedron ref={obj} castShadow receiveShadow>
-        <meshPhongMaterial attach="material" color={props.color} />
-      </Icosahedron>
-      <DebugText position={[1, -1, 0]} value={`(ben)`} /> */}
+      <Mandala position={mandalaPos} scale={[0.01, 0.01, 0.01]} />
     </group>
   )
 }
