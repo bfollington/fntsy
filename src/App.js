@@ -45,7 +45,7 @@ export default function Viewer() {
 
       <Suspense fallback={null}>
         {/* <Menu position={[-1.8, 1.5, 0]} /> */}
-        {/* <Mandala position={[-6, 0, -10]} scale={[0.01, 0.01, 0.01]} /> */}
+        {/* <Mind position={[0, 0, -7]} scale={[0.8, 0.8, 0.8]} /> */}
         {/* <Bard position={[0, 0, -10]} scale={[1, 1, 1]} /> */}
         <Floor position={[0, 0, -11]} scale={[128, 128, 1]} />
         {/* <Gif position={[0, 0, -10]} scale={[1, 1, 1]} /> */}

@@ -1,12 +1,10 @@
 import { PerspectiveCamera } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
 import { atom } from 'jotai'
 import { useRef } from 'react'
 import { Vector3 } from 'three'
+import { keycode, mouseButton, useButtonHeld } from 'use-control/lib'
 import KEYS from './useInput/keys'
-import MOUSE from './useInput/mouse'
-import { useInput } from './useInput/useInput'
-import { useMousePosition } from './useInput/useMousePosition'
+import { useProjectedMousePosition } from './input/useProjectedMousePosition'
 
 export const target = atom([0, 0, 5])
 const offset = new Vector3(0, -0.15, 0)
@@ -17,40 +15,41 @@ function clamp(val, min, max) {
   return Math.max(Math.min(val, max), min)
 }
 
+const inputMap = {
+  buttons: {
+    left: [keycode(KEYS.a), keycode(KEYS.left_arrow)],
+    right: [keycode(KEYS.d), keycode(KEYS.right_arrow)],
+    up: [keycode(KEYS.w), keycode(KEYS.up_arrow)],
+    down: [keycode(KEYS.s), keycode(KEYS.down_arrow)],
+    go: [mouseButton('left')],
+  },
+}
+
 function PanningCamera(props) {
   const camera = useRef()
 
-  const { projected } = useMousePosition(0)
+  const { projected } = useProjectedMousePosition(0)
 
-  const { left, right, up, down, go } = useInput({
-    left: [KEYS.a, KEYS.left_arrow],
-    right: [KEYS.d, KEYS.right_arrow],
-    up: [KEYS.w, KEYS.up_arrow],
-    down: [KEYS.s, KEYS.down_arrow],
-    go: [MOUSE.LMB],
+  useButtonHeld(inputMap, 'left', 16, () => {
+    camera.current.position.x -= speed * 2
   })
 
-  useFrame((_, delta) => {
-    // group.current.position.addScaledVector(gap, props.speed)
+  useButtonHeld(inputMap, 'right', 16, () => {
+    camera.current.position.x += speed * 2
+  })
 
-    if (left.held) {
-      camera.current.position.x -= speed * 2
-    }
-    if (right.held) {
-      camera.current.position.x += speed * 2
-    }
-    if (down.held) {
-      camera.current.position.y -= speed * 2
-    }
-    if (up.held) {
-      camera.current.position.y += speed * 2
-    }
+  useButtonHeld(inputMap, 'up', 16, () => {
+    camera.current.position.y += speed * 2
+  })
 
-    if (go.held) {
-      const gap = projected.current.sub(camera.current.position.add(offset))
-      camera.current.position.x += clamp(gap.x * speed, -maxSpeed, maxSpeed)
-      camera.current.position.y += clamp(gap.y * speed, -maxSpeed, maxSpeed)
-    }
+  useButtonHeld(inputMap, 'down', 16, () => {
+    camera.current.position.y -= speed * 2
+  })
+
+  useButtonHeld(inputMap, 'go', 1000 / 60, () => {
+    const gap = projected.current.sub(camera.current.position.add(offset))
+    camera.current.position.x += clamp(gap.x * speed, -maxSpeed, maxSpeed)
+    camera.current.position.y += clamp(gap.y * speed, -maxSpeed, maxSpeed)
   })
 
   return (

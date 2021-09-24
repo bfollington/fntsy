@@ -3,14 +3,14 @@ import { useFrame } from '@react-three/fiber'
 import React, { useEffect, useRef } from 'react'
 import { Vector3 } from 'three'
 import DebugText from './DebugText'
+import { useProjectedMousePosition } from './input/useProjectedMousePosition'
 import { chan } from './multiplayer'
-import { useMousePosition } from './useInput/useMousePosition'
 
 export default function Model(props) {
   const group = useRef()
   const obj = useRef()
 
-  const { projected } = useMousePosition(-10)
+  const { projected } = useProjectedMousePosition(-10)
 
   useFrame((_, delta) => {
     const gap = new Vector3()
