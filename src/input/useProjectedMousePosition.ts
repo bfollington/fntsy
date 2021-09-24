@@ -17,7 +17,6 @@ export function useProjectedMousePosition(targetZ: number) {
       -(y / DIMENSIONS.height) * 2 + 1,
       0.5
     )
-    console.log(mousePos.current)
   }, 16)
 
   useFrame(() => {

@@ -1,10 +1,13 @@
 import { PerspectiveCamera } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 import { atom } from 'jotai'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Vector3 } from 'three'
-import { keycode, mouseButton, useButtonHeld } from 'use-control/lib'
-import KEYS from './useInput/keys'
+import { mouseButton, useButtonHeld, keycode } from 'use-control/lib'
 import { useProjectedMousePosition } from './input/useProjectedMousePosition'
+import KEYS from './useInput/keys'
+import MOUSE from './useInput/mouse'
+import { useInput } from './useInput/useInput'
 
 export const target = atom([0, 0, 5])
 const offset = new Vector3(0, -0.15, 0)
@@ -30,26 +33,32 @@ function PanningCamera(props) {
 
   const { projected } = useProjectedMousePosition(0)
 
-  useButtonHeld(inputMap, 'left', 16, () => {
+  const { go } = useInput({
+    go: [MOUSE.LMB],
+  })
+
+  useButtonHeld(inputMap, 'left', 1000 / 60, () => {
     camera.current.position.x -= speed * 2
   })
-
-  useButtonHeld(inputMap, 'right', 16, () => {
+  useButtonHeld(inputMap, 'right', 1000 / 60, () => {
     camera.current.position.x += speed * 2
   })
-
-  useButtonHeld(inputMap, 'up', 16, () => {
+  useButtonHeld(inputMap, 'down', 1000 / 60, () => {
+    camera.current.position.y -= speed * 2
+  })
+  useButtonHeld(inputMap, 'up', 1000 / 60, () => {
     camera.current.position.y += speed * 2
   })
 
-  useButtonHeld(inputMap, 'down', 16, () => {
-    camera.current.position.y -= speed * 2
-  })
+  useFrame((_, delta) => {
+    // group.current.position.addScaledVector(gap, props.speed)
 
-  useButtonHeld(inputMap, 'go', 1000 / 60, () => {
-    const gap = projected.current.sub(camera.current.position.add(offset))
-    camera.current.position.x += clamp(gap.x * speed, -maxSpeed, maxSpeed)
-    camera.current.position.y += clamp(gap.y * speed, -maxSpeed, maxSpeed)
+    // TODO(ben): there's a bug with mixing useFrame and my polling loops for use-control
+    if (go.held) {
+      const gap = projected.current.sub(camera.current.position.add(offset))
+      camera.current.position.x += clamp(gap.x * speed, -maxSpeed, maxSpeed)
+      camera.current.position.y += clamp(gap.y * speed, -maxSpeed, maxSpeed)
+    }
   })
 
   return (
